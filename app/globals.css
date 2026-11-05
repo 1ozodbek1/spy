@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0b0a12;
+  --color-surface: #15131f;
+  --color-line: #2a2740;
+  --color-muted: #a8a3bd;
+  --color-brand: #7c3aed;
+  --color-brand-soft: #a78bfa;
+  --color-danger: #fb7185;
+  --color-ok: #34d399;
+  --color-warn: #fbbf24;
+  --color-paper: #ece8dc;
+  --color-ink: #14121c;
+}
+
+@theme inline {
+  --font-display: var(--font-syne), var(--font-manrope), sans-serif;
+  --font-mono: var(--font-space-mono), var(--font-manrope), monospace;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background: var(--color-bg);
+  }
+  body {
+    min-height: 100dvh;
+    background: var(--color-bg);
+    color: #f4f2fa;
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-soft);
+    outline-offset: 3px;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(40px, -30px, 0); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-14px) rotate(-1.5deg); }
+}
+
+.marquee-track { animation: marquee 38s linear infinite; }
+.drift { animation: drift 14s ease-in-out infinite; }
+.bob { animation: bob 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track, .drift, .bob { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+html[data-motion="off"] .marquee-track,
+html[data-motion="off"] .drift,
+html[data-motion="off"] .bob { animation: none; }
